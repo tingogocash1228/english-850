@@ -417,13 +417,14 @@ function updateStats() {
 function renderLessonGrid() {
     const grid = document.getElementById('lessonGrid');
     const progress = getProgress();
+    const isAdmin = sessionStorage.getItem('eng850_access') === 'tingo2026';
     
     grid.innerHTML = LESSONS.map((lesson, i) => {
         const p = progress[lesson.id];
         const completed = p ? p.completed.length : 0;
         const total = lesson.sentences.length;
         const pct = Math.round((completed / total) * 100);
-        const locked = i >= 5;
+        const locked = i >= 5 && !isAdmin;
         
         return `
             <div class="lesson-card${locked ? ' locked' : ''}" onclick="startLesson(${i})" style="${locked ? 'opacity:0.6;' : ''}">
@@ -440,8 +441,9 @@ function renderLessonGrid() {
 
 // === START LESSON ===
 function startLesson(idx) {
-    // Limit to first 5 lessons for trial
-    if (idx >= 5) {
+    // Admin mode unlocks all lessons
+    const isAdmin = sessionStorage.getItem('eng850_access') === 'tingo2026';
+    if (idx >= 5 && !isAdmin) {
         alert('🔒 体验版仅开放前 5 课\n\n完整 85 课正在打磨中，敬请期待！\n关注公众号获取最新动态。');
         return;
     }
@@ -1494,22 +1496,23 @@ document.addEventListener('keydown', (e) => {
 
 // === ACCESS CONTROL ===
 (function() {
-    const ACCESS_CODE = 'english850';  // Change this to your desired password
+    const ACCESS_CODE = 'english850';  // Normal user code
+    const ADMIN_CODE = 'tingo2026';    // Your admin code - unlocks all lessons
     const stored = sessionStorage.getItem('eng850_access');
-    if (stored === ACCESS_CODE) return; // Already authenticated this session
+    if (stored === ACCESS_CODE || stored === ADMIN_CODE) return;
     
     let attempts = 0;
     while (attempts < 3) {
         const code = prompt('🔑 请输入体验码访问课程：\n（关注公众号获取体验码）');
-        if (code === ACCESS_CODE) {
-            sessionStorage.setItem('eng850_access', ACCESS_CODE);
+        if (code === ACCESS_CODE || code === ADMIN_CODE) {
+            sessionStorage.setItem('eng850_access', code);
             return;
         }
-        if (code === null) break; // User cancelled
+        if (code === null) break;
         attempts++;
         if (attempts < 3) alert('体验码不正确，请重试。');
     }
-    document.body.innerHTML = '<div style="text-align:center;padding:100px 20px;font-family:sans-serif;"><h2>🔒 需要体验码</h2><p style="color:#666;margin-top:10px;">关注公众号「XXX」回复"体验"获取体验码</p><button onclick="location.reload()" style="margin-top:20px;padding:10px 20px;border:none;border-radius:8px;background:#4facfe;color:#fff;cursor:pointer;">重新输入</button></div>';
+    document.body.innerHTML = '<div style="text-align:center;padding:100px 20px;font-family:sans-serif;"><h2>🔒 需要体验码</h2><p style="color:#666;margin-top:10px;">关注公众号回复"体验"获取体验码</p><button onclick="location.reload()" style="margin-top:20px;padding:10px 20px;border:none;border-radius:8px;background:#4facfe;color:#fff;cursor:pointer;">重新输入</button></div>';
     throw new Error('Access denied');
 })();
 
