@@ -549,7 +549,7 @@ function renderSentence() {
             blanksHTML += `
                 <div style="text-align:center;">
                     <input type="text" id="blank-${i}" class="word-blank" data-idx="${i}" data-total="${words.length}"
-                        style="width:${width}px;padding:8px 4px;border:none;border-bottom:2px solid #555;background:transparent;color:#fff;font-size:1.3em;text-align:center;outline:none;"
+                        style="width:${width}px;padding:8px 4px;border:none;border-bottom:2px solid #4facfe;background:transparent;color:#222;font-size:1.3em;text-align:center;outline:none;"
                         maxlength="${cleanWord.length + 3}"
                         onkeydown="handleBlankKeydown(event, ${i}, ${words.length})"
                         oninput="playTypeSound()"
@@ -560,7 +560,7 @@ function renderSentence() {
         blanksHTML += '</div>';
         
         content = `
-            <div class="sentence-zh" style="font-size:1.5em;color:#fff;">${s.zh}</div>
+            <div class="sentence-zh" style="font-size:1.5em;color:#333;">${s.zh}</div>
             ${blanksHTML}
             <div id="translateResult" style="margin-top:15px;min-height:30px;"></div>
             <div class="btn-group">
@@ -622,7 +622,7 @@ function renderSentence() {
         setTimeout(() => playListenStage(s.en, stages, 0), 500);
     } else if (currentMode === 'speak') {
         content = `
-            <div class="sentence-zh" style="font-size:1.5em;color:#fff;">${s.zh}</div>
+            <div class="sentence-zh" style="font-size:1.5em;color:#333;">${s.zh}</div>
             <div class="sentence-en" style="font-size:1.3em;color:#555;margin-top:10px;">${enHTML}</div>
             <div class="btn-group">
                 ${buildPlayBtnHTML(s.en)}
