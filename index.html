@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Basic English 850 精品开口课</title>
+  <style>
+    :root{
+      --bg:#f5f7fb; --card:#ffffff; --text:#172033; --muted:#6b7280; --line:#e6ebf3;
+      --brand:#2563eb; --brand2:#06b6d4; --good:#16a34a; --warn:#f59e0b; --bad:#dc2626;
+      --purple:#7c3aed; --shadow:0 14px 35px rgba(18,31,55,.08); --radius:22px;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",Arial,sans-serif;background:linear-gradient(180deg,#eef5ff 0%,var(--bg) 42%,#f8fafc 100%);color:var(--text);min-height:100vh}
+    button,input,textarea,select{font:inherit}
+    button{cursor:pointer;border:0}
+    .app{max-width:1180px;margin:0 auto;padding:22px}
+    .hero{display:grid;grid-template-columns:1.25fr .75fr;gap:18px;margin-bottom:18px;align-items:stretch}
+    .hero-main,.panel,.card{background:rgba(255,255,255,.92);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow)}
+    .hero-main{padding:30px;position:relative;overflow:hidden}
+    .hero-main:after{content:"";position:absolute;right:-80px;top:-80px;width:250px;height:250px;background:radial-gradient(circle,rgba(37,99,235,.22),transparent 68%)}
+    .badge{display:inline-flex;align-items:center;gap:8px;background:#eff6ff;color:#1d4ed8;border:1px solid #bfdbfe;border-radius:999px;padding:7px 12px;font-weight:700;font-size:13px;margin-bottom:14px}
+    h1{font-size:38px;letter-spacing:-.04em;line-height:1.05;margin-bottom:12px}
+    .subtitle{font-size:16px;color:#4b5563;line-height:1.75;max-width:760px}
+    .hero-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+    .btn{border-radius:14px;padding:11px 16px;font-weight:800;display:inline-flex;align-items:center;gap:8px;transition:.18s transform,.18s box-shadow,.18s background;white-space:nowrap}
+    .btn:hover{transform:translateY(-1px);box-shadow:0 10px 22px rgba(18,31,55,.12)}
+    .btn-primary{background:linear-gradient(135deg,var(--brand),var(--brand2));color:#fff}
+    .btn-soft{background:#eef2ff;color:#1d4ed8;border:1px solid #dbe3ff}
+    .btn-light{background:#f3f4f6;color:#374151;border:1px solid #e5e7eb}
+    .btn-good{background:#dcfce7;color:#166534;border:1px solid #bbf7d0}
+    .btn-warn{background:#fef3c7;color:#92400e;border:1px solid #fde68a}
+    .btn-danger{background:#fee2e2;color:#991b1b;border:1px solid #fecaca}
+    .btn-ghost{background:transparent;color:#374151;border:1px solid var(--line)}
+    .btn.small{padding:8px 11px;border-radius:11px;font-size:13px;font-weight:700}
+    .side{padding:20px;display:flex;flex-direction:column;gap:12px}
+    .stats{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+    .stat{background:#f8fafc;border:1px solid var(--line);border-radius:16px;padding:14px}
+    .stat b{font-size:25px;color:#111827;display:block}
+    .stat span{font-size:12px;color:var(--muted)}
+    .settings-row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+    .settings-row select,.settings-row input{height:38px;border:1px solid var(--line);border-radius:12px;background:#fff;padding:0 10px;min-width:120px}
+    .notice{background:#fffbeb;border:1px solid #fde68a;color:#92400e;border-radius:14px;padding:10px 12px;font-size:13px;line-height:1.55}
+    .toolbar{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin:14px 0}
+    .tabs{display:flex;gap:8px;flex-wrap:wrap}
+    .tab,.chip{padding:8px 13px;border-radius:999px;background:#fff;border:1px solid var(--line);color:#4b5563;font-weight:700;font-size:13px}
+    .tab.active,.chip.active{background:#dbeafe;color:#1d4ed8;border-color:#93c5fd}
+    .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(285px,1fr));gap:14px;margin-top:12px}
+    .lesson-card{padding:18px;position:relative;overflow:hidden;transition:.18s transform,.18s box-shadow,.18s border-color}
+    .lesson-card:hover{transform:translateY(-2px);border-color:#bfdbfe;box-shadow:0 16px 36px rgba(37,99,235,.13)}
+    .lesson-card.locked{opacity:.76}
+    .lesson-num{position:absolute;right:16px;top:16px;color:#94a3b8;font-size:12px;font-weight:900}
+    .lesson-card h3{font-size:17px;margin:2px 42px 8px 0;line-height:1.3}
+    .lesson-card p{font-size:13px;color:var(--muted);line-height:1.55;min-height:40px}
+    .lesson-meta{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0 10px}
+    .pill{font-size:12px;color:#475569;background:#f1f5f9;border:1px solid #e2e8f0;padding:5px 8px;border-radius:999px}
+    .progress-line{height:7px;background:#e5e7eb;border-radius:999px;overflow:hidden;margin-top:12px}
+    .progress-fill{height:100%;background:linear-gradient(90deg,var(--brand),var(--brand2));width:0%}
+    .view{display:none}.view.active{display:block}
+    .practice-layout{display:grid;grid-template-columns:280px 1fr;gap:16px;align-items:start}
+    .practice-sidebar{position:sticky;top:14px;padding:16px}
+    .practice-main{min-width:0}
+    .section-title{font-size:13px;color:#64748b;font-weight:900;text-transform:uppercase;letter-spacing:.06em;margin:14px 0 8px}
+    .mode-list,.level-list{display:flex;flex-direction:column;gap:8px}
+    .mode-btn,.level-btn{width:100%;justify-content:flex-start;text-align:left;background:#f8fafc;color:#334155;border:1px solid var(--line);border-radius:14px;padding:11px 12px;font-weight:800}
+    .mode-btn.active,.level-btn.active{background:#eff6ff;border-color:#93c5fd;color:#1d4ed8}
+    .lesson-summary{font-size:13px;line-height:1.65;color:#4b5563;background:#f8fafc;border:1px solid var(--line);border-radius:16px;padding:12px;margin-top:10px}
+    .sentence-card{padding:24px;min-height:560px}
+    .topbar{display:flex;justify-content:space-between;align-items:flex-start;gap:14px;margin-bottom:14px;flex-wrap:wrap}
+    .titlebox h2{font-size:23px;line-height:1.25;margin-bottom:6px}
+    .titlebox p{font-size:13px;color:var(--muted)}
+    .sentence-progress{display:flex;align-items:center;gap:10px;color:#475569;font-weight:800}
+    .sentence-progress .bar{height:9px;width:160px;background:#e5e7eb;border-radius:999px;overflow:hidden}.sentence-progress .bar i{display:block;height:100%;background:linear-gradient(90deg,var(--purple),var(--brand));width:0%}
+    .prompt-zone{background:linear-gradient(180deg,#ffffff,#f8fafc);border:1px solid var(--line);border-radius:20px;padding:24px;margin:12px 0;text-align:center}
+    .sentence-en{font-size:34px;line-height:1.35;font-weight:850;letter-spacing:-.02em;margin-bottom:10px;word-break:break-word}
+    .sentence-en.hidden-text{filter:blur(8px);user-select:none;color:#94a3b8}
+    .sentence-zh{font-size:20px;line-height:1.5;color:#475569;margin-bottom:12px}
+    .sentence-zh.hidden-text{visibility:hidden}
+    .key{color:#2563eb;text-decoration:underline;text-decoration-thickness:3px;text-underline-offset:5px;text-decoration-color:#bfdbfe}
+    .coach-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:12px 0}
+    .coach{background:#f8fafc;border:1px solid var(--line);border-radius:16px;padding:13px;line-height:1.6;font-size:13px;color:#4b5563}
+    .coach b{color:#111827}.coach.full{grid-column:1/-1}
+    .word-list{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px;justify-content:center}
+    .word-chip{background:#eef2ff;color:#3730a3;border:1px solid #c7d2fe;border-radius:14px;padding:8px 11px;min-width:76px;font-size:12px;font-weight:800;text-align:center;line-height:1.25}
+    .word-chip .word{display:block;font-size:14px;color:#1e1b4b}
+    .word-chip .phonetic{display:block;font-size:12px;color:#4338ca;margin-top:3px;font-weight:700}
+    .word-chip .zh{display:block;font-size:12px;color:#64748b;margin-top:3px;font-weight:700}
+    .word-chip.phonetic-only{min-width:64px;padding:8px 10px}
+    .word-chip.phonetic-only .phonetic{font-size:14px;margin-top:0;color:#312e81}
+    .phrase-hidden{color:#64748b;line-height:1.6}
+    .phrase-hidden .phrase-mask{display:inline-flex;align-items:center;gap:6px;background:#f1f5f9;border:1px dashed #cbd5e1;border-radius:999px;padding:7px 11px;color:#64748b;font-size:12px;font-weight:800;user-select:none}
+    .phrase-hidden .phrase-real{display:none;margin-top:8px;color:#475569;font-weight:700}
+    .phrase-hidden.revealed .phrase-mask{display:none}
+    .phrase-hidden.revealed .phrase-real{display:block}
+    .voicebar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:14px 0;padding:12px;background:#f8fafc;border:1px solid var(--line);border-radius:16px}
+    .answer-zone{margin-top:12px}.answer-zone textarea{width:100%;min-height:96px;border:1px solid #cbd5e1;border-radius:16px;padding:14px;font-size:18px;line-height:1.55;resize:vertical;background:#fff}.answer-zone textarea:focus{outline:3px solid #bfdbfe;border-color:#60a5fa}
+    .result{display:none;margin-top:12px;border-radius:16px;padding:14px;line-height:1.6;border:1px solid var(--line);background:#f8fafc}.result.show{display:block}.result .score{font-size:34px;font-weight:900;margin-right:8px}.score.good{color:var(--good)}.score.warn{color:var(--warn)}.score.bad{color:var(--bad)}
+    .feedback-line{font-size:14px;color:#475569}.diff{font-size:14px;margin-top:7px}.missing{color:#dc2626;font-weight:900}.okword{color:#16a34a;font-weight:800}.extra{color:#b45309;font-weight:800}
+    .nav{display:flex;justify-content:space-between;gap:10px;margin-top:14px;flex-wrap:wrap}
+    .recording{animation:pulse 1s infinite}@keyframes pulse{0%,100%{opacity:1}50%{opacity:.45}}
+    .timer{font-variant-numeric:tabular-nums;color:#64748b;font-weight:900}
+    .lockbox{padding:22px;text-align:center}.lockbox h3{font-size:22px;margin-bottom:8px}.lockbox p{color:var(--muted);line-height:1.7;margin-bottom:12px}.lockbox input{height:42px;width:min(320px,100%);border:1px solid var(--line);border-radius:14px;padding:0 13px;margin-right:8px}
+    .kbd{background:#0f172a;color:#f8fafc;border-radius:6px;padding:2px 6px;font-size:12px;font-family:ui-monospace,Menlo,monospace}.hintbar{display:flex;gap:10px;flex-wrap:wrap;color:#64748b;font-size:12px;margin-top:12px;justify-content:center}
+    .footer-note{color:#64748b;font-size:12px;line-height:1.7;text-align:center;margin:20px 0}
+    @media(max-width:900px){.hero,.practice-layout{grid-template-columns:1fr}.practice-sidebar{position:static}.coach-grid{grid-template-columns:1fr}.sentence-en{font-size:27px}.sentence-zh{font-size:18px}.app{padding:14px}h1{font-size:31px}}
+  </style>
+</head>
+<body>
+<div class="app">
+  <section class="hero">
+    <div class="hero-main">
+      <div class="badge">✨ 精品付费版 · 听说读写闭环</div>
+      <h1>Basic English 850 精品开口课</h1>
+      <p class="subtitle" id="courseSubtitle">850 个基础词，85 课，5100 个精选例句。每一句都能听、能打、能说、能评分，把“背过单词”升级为“真实开口”。</p>
+      <div class="hero-actions">
+        <button class="btn btn-primary" onclick="scrollToLessons()">开始练习</button>
+        <button class="btn btn-soft" onclick="showSettings()">语音设置</button>
+        <button class="btn btn-light" onclick="exportProgress()">导出学习记录</button>
+      </div>
+    </div>
+    <aside class="side panel">
+      <div class="stats">
+        <div class="stat"><b id="statDone">0</b><span>完成句次</span></div>
+        <div class="stat"><b id="statWords">0</b><span>已接触词</span></div>
+        <div class="stat"><b id="statSpeak">0</b><span>口语均分</span></div>
+        <div class="stat"><b id="statStreak">0</b><span>连续天数</span></div>
+      </div>
+      <div class="notice">语音默认使用浏览器本地英文发音；填入 Azure Key 后可切换真人神经网络音色。生产部署建议用后端代理保护 Key。</div>
+      <div class="settings-row">
+        <select id="quickVoice" onchange="changeVoice(this.value)"></select>
+        <select id="quickRate" onchange="state.rate=parseFloat(this.value);saveSettings();renderSentence();">
+          <option value="0.72">慢速 0.72x</option><option value="0.88">清晰 0.88x</option><option value="1" selected>标准 1.0x</option><option value="1.12">挑战 1.12x</option>
+        </select>
+      </div>
+    </aside>
+  </section>
+
+  <div id="settingsPanel" class="panel" style="display:none;padding:18px;margin-bottom:14px;">
+    <div class="toolbar" style="margin:0 0 12px 0"><b>语音与部署设置</b><button class="btn btn-light small" onclick="hideSettings()">收起</button></div>
+    <div class="settings-row">
+      <select id="engineSelect" onchange="state.engine=this.value;saveSettings();populateVoices();">
+        <option value="browser">浏览器语音（免费）</option>
+        <option value="azure">Azure 真人语音（需 Key）</option>
+      </select>
+      <select id="azureVoiceSelect" onchange="state.azureVoice=this.value;saveSettings();populateVoices();"></select>
+      <input id="azureRegion" placeholder="Azure Region，如 eastus" />
+      <input id="azureKey" placeholder="Azure Key，仅保存在本机浏览器" style="min-width:260px" />
+      <button class="btn btn-primary small" onclick="saveAzure()">保存 Key</button>
+      <button class="btn btn-ghost small" onclick="testVoice()">测试语音</button>
+    </div>
+  </div>
+
+  <section id="viewList" class="view active">
+    <div class="toolbar" id="lessonsTop">
+      <div class="tabs" id="levelFilterTabs">
+        <button class="tab active" onclick="setListFilter('all',this)">全部课程</button>
+        <button class="tab" onclick="setListFilter('free',this)">免费体验</button>
+        <button class="tab" onclick="setListFilter('unfinished',this)">未完成</button>
+      </div>
+      <div class="tabs"><button class="tab" onclick="resetProgressConfirm()">重置进度</button><button class="tab" onclick="unlockPrompt()">输入体验码/付费码</button></div>
+    </div>
+    <div class="grid" id="lessonGrid"></div>
+    <p class="footer-note">静态部署：把 <b>index_premium.html</b> 和 <b>lessons_premium.js</b> 放在同一目录即可。正式售卖建议接入登录、支付和后端鉴权。</p>
+  </section>
+
+  <section id="viewPractice" class="view">
+    <div class="practice-layout">
+      <aside class="practice-sidebar panel">
+        <button class="btn btn-light" style="width:100%;justify-content:center" onclick="showList()">← 返回课程</button>
+        <div class="section-title">训练模式</div>
+        <div class="mode-list" id="modeList"></div>
+        <div class="section-title">难度</div>
+        <div class="level-list" id="levelList"></div>
+        <div class="section-title">题量</div>
+        <div class="tabs"><button class="chip active" onclick="setQuizCount(10,this)">10句</button><button class="chip" onclick="setQuizCount(15,this)">15句</button><button class="chip" onclick="setQuizCount(20,this)">20句</button></div>
+        <div class="lesson-summary" id="lessonSummary"></div>
+      </aside>
+      <main class="practice-main">
+        <div class="sentence-card card">
+          <div class="topbar">
+            <div class="titlebox"><h2 id="practiceTitle"></h2><p id="practiceDesc"></p></div>
+            <div class="sentence-progress"><span id="sentenceCount">1/10</span><span class="bar"><i id="pbar"></i></span><span class="timer" id="timer">00:00</span></div>
+          </div>
+          <div id="sentenceArea"></div>
+          <div class="hintbar"><span><span class="kbd">Space</span> 播放</span><span><span class="kbd">Enter</span> 检查/下一句</span><span><span class="kbd">R</span> 录音</span><span><span class="kbd">H</span> 显示答案</span></div>
+        </div>
+      </main>
+    </div>
+  </section>
+</div>
+
+<script src="lessons_premium.js"></script>
+<script src="https://aka.ms/csspeech/jsbrowserpackageraw" defer></script>
+<script>
+if (typeof LESSONS === 'undefined' || typeof COURSE_META === 'undefined') {
+  alert('课程数据 lessons_premium.js 没有正确加载。请确认 lessons_premium.js 和 index.html 在同一目录。');
+}
+const state = {
+  lessonIndex:0, lesson:null, mode:'learn', level:'beginner', quizCount:10, queue:[], index:0,
+  rate: parseFloat(localStorage.getItem('eng850_premium_rate') || '1'),
+  engine: localStorage.getItem('eng850_premium_engine') || 'browser',
+  azureKey: localStorage.getItem('eng850_azure_key') || '',
+  azureRegion: localStorage.getItem('eng850_azure_region') || 'eastus',
+  azureVoice: localStorage.getItem('eng850_azure_voice') || 'en-US-JennyNeural',
+  browserVoiceName: localStorage.getItem('eng850_browser_voice') || '',
+  listFilter:'all', startedAt: Date.now(), timerHandle:null, revealed:false, recognition:null, mediaRecorder:null, audioChunks:[], lastAudioUrl:null, transcript:'', speaking:false
+};
+function $(id){return document.getElementById(id)}
+function esc(s){return String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]))}
+function normalizeText(s){return String(s||'').toLowerCase().replace(/[’]/g,"'").replace(/[^a-z0-9'\s]/g,' ').replace(/\s+/g,' ').trim()}
+function wordTokens(s){const n=normalizeText(s);return n?n.split(' '):[]}
+function sentenceWordPhonetics(sentence){const seen=new Set();const out=[];for(const w of wordTokens(sentence?.en||'')){if(seen.has(w))continue;seen.add(w);const info=PHONETICS[w];if(info)out.push({word:w,ph:info.ph||'',pos:info.pos||'',zh:info.zh||''});if(out.length>=10)break;}return out}
+function todayKey(){return new Date().toISOString().slice(0,10)}
+function progress(){return JSON.parse(localStorage.getItem('eng850_premium_progress') || '{"sentences":{},"dates":{},"words":{}}')}
+function saveProgress(p){localStorage.setItem('eng850_premium_progress',JSON.stringify(p));updateStats();renderLessonGrid()}
+function isUnlocked(){return localStorage.getItem('eng850_premium_unlocked') === '1'}
+function markAttempt(sentence, fields){
+  const p=progress(); const uid=sentence.uid; if(!p.sentences[uid]) p.sentences[uid]={attempts:0,bestType:0,bestSpeak:0,done:false};
+  const r=p.sentences[uid]; r.attempts=(r.attempts||0)+1; r.lastAt=new Date().toISOString(); r.mode=state.mode;
+  if(typeof fields.typeScore==='number') r.bestType=Math.max(r.bestType||0,Math.round(fields.typeScore));
+  if(typeof fields.speakScore==='number') r.bestSpeak=Math.max(r.bestSpeak||0,Math.round(fields.speakScore));
+  if(fields.done) r.done=true;
+  sentenceWordPhonetics(sentence).forEach(w=>{if(w.word)p.words[w.word]=true});
+  p.dates[todayKey()]=true;
+  saveProgress(p);
+}
+function calcStreak(p){
+  let streak=0; const d=new Date();
+  while(true){const k=d.toISOString().slice(0,10); if(p.dates && p.dates[k]){streak++; d.setDate(d.getDate()-1)} else break;}
+  return streak;
+}
+function updateStats(){
+  const p=progress(); const rows=Object.values(p.sentences||{}); const done=rows.filter(r=>r.done).length;
+  const speak=rows.map(r=>r.bestSpeak||0).filter(Boolean); const avg=speak.length?Math.round(speak.reduce((a,b)=>a+b,0)/speak.length):0;
+  $('statDone').textContent=done; $('statWords').textContent=Object.keys(p.words||{}).length; $('statSpeak').textContent=avg; $('statStreak').textContent=calcStreak(p);
+}
+function sentenceProgressForLesson(lesson){
+  const p=progress(); let total=0,done=0;
+  ['beginner','intermediate','advanced'].forEach(lv=>(lesson.sentences[lv]||[]).forEach(s=>{total++; if(p.sentences[s.uid]?.done)done++}))
+  return {total,done,pct:total?Math.round(done*100/total):0};
+}
+function renderLessonGrid(){
+  const grid=$('lessonGrid'); if(!grid)return; const unlocked=isUnlocked();
+  let items=LESSONS.map((l,i)=>({lesson:l,i}));
+  if(state.listFilter==='free') items=items.filter(x=>x.i<COURSE_META.freeLessons);
+  if(state.listFilter==='unfinished') items=items.filter(x=>sentenceProgressForLesson(x.lesson).pct<100);
+  grid.innerHTML=items.map(({lesson:l,i})=>{
+    const pr=sentenceProgressForLesson(l); const locked=i>=COURSE_META.freeLessons&&!unlocked;
+    const words=(l.premium?.wordsDetailed||[]).slice(0,5).map(w=>w.word).join(' / ');
+    return `<article class="lesson-card card ${locked?'locked':''}" onclick="openLesson(${i})">
+      <div class="lesson-num">${esc(l.id)} ${locked?'🔒':'✨'}</div>
+      <h3>${esc(l.title)}</h3><p>${esc(l.desc||l.premium?.promise||'')}</p>
+      <div class="lesson-meta"><span class="pill">60句</span><span class="pill">${pr.done}/${pr.total}完成</span><span class="pill">${locked?'需解锁':'可练习'}</span></div>
+      <p style="min-height:auto;color:#64748b">核心词：${esc(words)}</p>
+      <div class="progress-line"><div class="progress-fill" style="width:${pr.pct}%"></div></div>
+    </article>`
+  }).join('');
+}
+function setListFilter(v,btn){state.listFilter=v;document.querySelectorAll('#levelFilterTabs .tab').forEach(b=>b.classList.remove('active'));btn.classList.add('active');renderLessonGrid()}
+function scrollToLessons(){$('lessonsTop').scrollIntoView({behavior:'smooth',block:'start'})}
+function showSettings(){$('settingsPanel').style.display='block';$('azureKey').value=state.azureKey;$('azureRegion').value=state.azureRegion;$('engineSelect').value=state.engine;populateAzureVoiceSelect()}
+function hideSettings(){$('settingsPanel').style.display='none'}
+function saveAzure(){state.azureKey=$('azureKey').value.trim();state.azureRegion=$('azureRegion').value.trim()||'eastus';localStorage.setItem('eng850_azure_key',state.azureKey);localStorage.setItem('eng850_azure_region',state.azureRegion);state.engine=$('engineSelect').value;saveSettings();alert('语音设置已保存。')}
+function saveSettings(){localStorage.setItem('eng850_premium_rate',state.rate);localStorage.setItem('eng850_premium_engine',state.engine);localStorage.setItem('eng850_azure_voice',state.azureVoice);localStorage.setItem('eng850_browser_voice',state.browserVoiceName)}
+function populateAzureVoiceSelect(){const sel=$('azureVoiceSelect'); if(!sel)return; sel.innerHTML=(VOICE_PROFILES.azure||[]).map(v=>`<option value="${v.id}">${v.label}</option>`).join(''); sel.value=state.azureVoice}
+function populateVoices(){
+  const sel=$('quickVoice'); if(!sel)return; const native=speechSynthesis.getVoices().filter(v=>/^en[-_]/i.test(v.lang));
+  const azure=(VOICE_PROFILES.azure||[]).map(v=>`<option value="azure:${v.id}">Azure · ${v.label}</option>`).join('');
+  const browser=native.map(v=>`<option value="browser:${esc(v.name)}">本地 · ${esc(v.name)} (${esc(v.lang)})</option>`).join('');
+  sel.innerHTML=`<option value="browser:auto">浏览器自动英文音色</option>${browser}${azure}`;
+  sel.value=state.engine==='azure'?`azure:${state.azureVoice}`:(state.browserVoiceName?`browser:${state.browserVoiceName}`:'browser:auto');
+}
+function changeVoice(v){ if(v.startsWith('azure:')){state.engine='azure';state.azureVoice=v.slice(6)} else {state.engine='browser';state.browserVoiceName=v.slice(8)==='auto'?'':v.slice(8)} saveSettings(); }
+function openLesson(i){
+  if(i>=COURSE_META.freeLessons && !isUnlocked()){showUnlockCard(i);return}
+  state.lessonIndex=i; state.lesson=LESSONS[i]; state.index=0; state.revealed=false; buildQueue(); showPractice();
+}
+function showUnlockCard(targetIndex){
+  $('viewList').classList.remove('active'); $('viewPractice').classList.add('active');
+  document.querySelector('.practice-layout').innerHTML=`<main class="card lockbox" style="grid-column:1/-1">
+    <h3>解锁完整精品课</h3><p>前 ${COURSE_META.freeLessons} 课可免费体验。继续学习第 ${targetIndex+1} 课，请输入体验码或付费码。</p>
+    <input id="unlockCode" placeholder="请输入体验码/付费码" /><button class="btn btn-primary" onclick="unlockNow(${targetIndex})">解锁并进入</button>
+    <div style="margin-top:14px"><button class="btn btn-light" onclick="location.reload()">返回课程列表</button></div>
+    <p style="font-size:12px;margin-top:14px;color:#94a3b8">静态网页前端解锁只适合体验版；正式商业部署建议接入后端账号系统。</p>
+  </main>`;
+}
+function unlockPrompt(){const code=prompt('请输入体验码/付费码'); if(code)unlockCode(code)}
+function unlockNow(target){const code=$('unlockCode').value; if(unlockCode(code)){localStorage.setItem('eng850_pending_lesson',String(target));location.reload()}}
+function unlockCode(code){if(String(code||'').trim()===(COURSE_META.unlockCodeDefault||'tingo2026')){localStorage.setItem('eng850_premium_unlocked','1');alert('已解锁完整课程。');renderLessonGrid();return true} alert('体验码不正确。');return false}
+function showList(){$('viewPractice').classList.remove('active');$('viewList').classList.add('active');stopTimer();speechSynthesis.cancel();renderLessonGrid()}
+function showPractice(){
+  $('viewList').classList.remove('active');$('viewPractice').classList.add('active');
+  const layout=document.querySelector('.practice-layout');
+  if(!layout.querySelector('.practice-sidebar')) location.reload();
+  renderModeList(); renderLevelList(); renderLessonSummary(); renderSentence(); startTimer();
+}
+function renderModeList(){const box=$('modeList'); box.innerHTML=Object.entries(TRAINING_MODES).map(([k,m])=>`<button class="mode-btn ${state.mode===k?'active':''}" onclick="setMode('${k}')">${m.icon} ${m.label}<br><small style="font-weight:500;color:#64748b">${m.goal}</small></button>`).join('')}
+function renderLevelList(){const box=$('levelList'); box.innerHTML=Object.entries(LEVEL_CONFIG).map(([k,l])=>`<button class="level-btn ${state.level===k?'active':''}" onclick="setLevel('${k}')">${l.label}<br><small style="font-weight:500;color:#64748b">${l.desc}</small></button>`).join('')}
+function setMode(m){state.mode=m;state.index=0;state.revealed=false;buildQueue();renderModeList();renderSentence();startTimer()}
+function setLevel(l){state.level=l;state.index=0;state.revealed=false;buildQueue();renderLevelList();renderLessonSummary();renderSentence();startTimer()}
+function setQuizCount(n,btn){state.quizCount=n;document.querySelectorAll('.chip').forEach(b=>b.classList.remove('active'));if(btn)btn.classList.add('active');state.index=0;buildQueue();renderSentence();startTimer()}
+function renderLessonSummary(){
+  const l=state.lesson; if(!l)return; const words=(l.premium?.wordsDetailed||[]).slice(0,10).map(w=>`${w.word}${w.ph?' '+w.ph:''}`).join(' · ');
+  $('lessonSummary').innerHTML=`<b>${esc(l.id)} ${esc(l.title)}</b><br>${esc(l.premium?.promise||l.desc||'')}<br><br><b>本课流程</b><br>${(l.premium?.flow||[]).map(x=>'• '+esc(x)).join('<br>')}<br><br><b>核心词</b><br>${esc(words)}`
+}
+function buildQueue(){
+  if(!state.lesson)return; let arr=[...(state.lesson.sentences[state.level]||[])];
+  if(state.mode==='challenge') arr=shuffle(arr).slice(0,state.quizCount); else arr=arr.sort((a,b)=>(a.priority==='core'?0:1)-(b.priority==='core'?0:1)).slice(0,state.quizCount);
+  state.queue=arr; state.index=Math.min(state.index,Math.max(0,arr.length-1));
+}
+function shuffle(a){const b=[...a]; for(let i=b.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[b[i],b[j]]=[b[j],b[i]]}return b}
+function currentSentence(){return state.queue[state.index]}
+function highlightKey(en,key){if(!key)return esc(en); const re=new RegExp(`\\b(${key.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')})\\b`,'ig'); return esc(en).replace(re,'<span class="key">$1</span>')}
+
+function playTypeSound(){
+  try{
+    if(!window.AudioContext&&!window.webkitAudioContext)return;
+    const Ctx=window.AudioContext||window.webkitAudioContext;
+    if(!state.audioCtx)state.audioCtx=new Ctx();
+    const ctx=state.audioCtx;
+    if(ctx.state==='suspended')ctx.resume();
+    const osc=ctx.createOscillator();
+    const gain=ctx.createGain();
+    osc.type='sine';
+    osc.frequency.value=520+Math.random()*180;
+    gain.gain.setValueAtTime(0.0001,ctx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.035,ctx.currentTime+0.005);
+    gain.gain.exponentialRampToValueAtTime(0.0001,ctx.currentTime+0.045);
+    osc.connect(gain);
+    gain.connect(ctx.destination);
+    osc.start();
+    osc.stop(ctx.currentTime+0.05);
+  }catch(e){}
+}
+function bindTypingSound(){
+  ['answerInput','speechTranscript'].forEach(id=>{
+    const el=$(id);
+    if(el&&!el.dataset.typeSoundBound){
+      el.dataset.typeSoundBound='1';
+      el.addEventListener('keydown',e=>{
+        if(e.key.length===1 || e.key==='Backspace' || e.key==='Enter')playTypeSound();
+      });
+    }
+  });
+}
+
+function renderSentence(){
+  const s=currentSentence(); if(!s)return; state.startedAt=Date.now(); state.transcript=''; state.audioChunks=[]; if(state.lastAudioUrl){URL.revokeObjectURL(state.lastAudioUrl); state.lastAudioUrl=null}
+  $('practiceTitle').textContent=`${state.lesson.id} · ${state.lesson.title}`; $('practiceDesc').textContent=TRAINING_MODES[state.mode].goal;
+  $('sentenceCount').textContent=`${state.index+1}/${state.queue.length}`; $('pbar').style.width=`${Math.round((state.index+1)*100/state.queue.length)}%`;
+  const mode=state.mode;
+  const showAnswerHints = mode==='learn' || state.revealed;
+  const showEn = mode==='learn' || mode==='speak' || state.revealed;
+  const showZh = mode!=='dictation' || state.revealed;
+  const inputPlaceholder = mode==='translate'?'看中文，输入完整英文句子':mode==='dictation'?'听音频，输入你听到的英文':mode==='challenge'?'综合闯关：输入完整英文': '跟打一遍英文句子';
+  const voicebar = `<div class="voicebar">
+      <button class="btn btn-primary small" onclick="playCurrent()">▶ 标准音</button>
+      <button class="btn btn-soft small" onclick="playCurrent(0.72)">🐢 慢速</button>
+      <button class="btn btn-light small" onclick="playChunks()">语块跟读</button>
+      <button class="btn btn-light small" onclick="loopCurrent(3)">循环 3 遍</button>
+      <button class="btn btn-ghost small" onclick="revealAnswer()">显示答案</button>
+    </div>`;
+  const prompt = `<div class="prompt-zone">
+      <div class="sentence-zh ${showZh?'':'hidden-text'}">${esc(s.zh)}</div>
+      <div class="sentence-en ${showEn?'':'hidden-text'}">${showEn?highlightKey(s.en,s.key):'Listen first, then speak.'}</div>
+      <div class="word-list">${sentenceWordPhonetics(s).slice(0,7).map(w=>showAnswerHints?`<span class="word-chip"><span class="word">${esc(w.word)}</span><span class="phonetic">${esc(w.ph)}</span><span class="zh">${esc(w.zh)}</span></span>`:`<span class="word-chip phonetic-only"><span class="phonetic">${esc(w.ph||'音标')}</span></span>`).join('')}</div>
+    </div>`;
+  const coach = `<div class="coach-grid">
+      <div class="coach"><b>知识点</b><br>${showAnswerHints?esc(s.coach?.point||s.tip):'本模式隐藏答案提示；先凭中文、听力或口语完成输出。'}</div>
+      <div class="coach"><b>发音标注</b><br>${showAnswerHints?esc(s.speech?.pronunciationTip||'按语块自然停顿。'):'音标已显示在上方；重读、连读词在作答后再看。'}</div>
+      <div class="coach"><b>语块</b><br>${showAnswerHints?`<div class="phrase-hidden" onclick="this.classList.toggle('revealed')"><span class="phrase-mask">点击显示语块提示</span><div class="phrase-real">${esc((s.speech?.chunks||[]).join(' / '))}</div></div>`:'已隐藏，避免直接抄答案。'}</div>
+      <div class="coach"><b>评分要求</b><br>通过分：${s.scoring?.passScore||80}。${showAnswerHints?'重点词：'+esc((s.scoring?.requiredWords||[]).join(' / ')):'重点词已隐藏，提交后按完整句评分。'}</div>
+    </div>`;
+  const fillBtn = showAnswerHints ? '<button class="btn btn-light small" onclick="fillAnswer()">填入答案</button>' : '';
+  const answer = mode==='speak' ? speakPanel(s) : `<div class="answer-zone"><textarea id="answerInput" placeholder="${inputPlaceholder}"></textarea><div class="voicebar"><button class="btn btn-good small" onclick="checkAnswer()">检查并评分</button>${fillBtn}<button class="btn btn-primary small" onclick="nextSentence()">下一句</button></div></div>`;
+  $('sentenceArea').innerHTML=voicebar+prompt+coach+answer+`<div id="result" class="result"></div><div class="nav"><button class="btn btn-light" onclick="prevSentence()">← 上一句</button><button class="btn btn-light" onclick="playCurrent()">再听一遍</button><button class="btn btn-primary" onclick="nextSentence()">下一句 →</button></div>`;
+  setTimeout(()=>{bindTypingSound(); const t=$('answerInput'); if(t)t.focus()},30);
+  if(mode==='dictation'||mode==='listen') setTimeout(()=>playCurrent(),180);
+}
+function speakPanel(s){return `<div class="answer-zone">
+  <div class="voicebar"><button id="recordBtn" class="btn btn-danger" onclick="toggleSpeechRecord()">🎤 开始跟读评分</button><button class="btn btn-light" onclick="playCurrent()">听标准音</button><button class="btn btn-light" onclick="playMyRecording()">回放我的录音</button><button class="btn btn-primary" onclick="nextSentence()">下一句</button></div>
+  <textarea id="speechTranscript" placeholder="识别结果会显示在这里；也可以手动修改后点击评分。"></textarea>
+  <div class="voicebar"><button class="btn btn-good small" onclick="scoreManualSpeech()">按文本评分</button><button class="btn btn-soft small" onclick="startAzureAssessment()">Azure 发音评估</button></div>
+</div>`}
+function revealAnswer(){state.revealed=true;renderSentence()}
+function fillAnswer(){const t=$('answerInput'); if(t){t.value=currentSentence().en;checkAnswer()}}
+function levenshtein(a,b){const m=a.length,n=b.length,dp=Array.from({length:m+1},()=>Array(n+1).fill(0));for(let i=0;i<=m;i++)dp[i][0]=i;for(let j=0;j<=n;j++)dp[0][j]=j;for(let i=1;i<=m;i++)for(let j=1;j<=n;j++)dp[i][j]=Math.min(dp[i-1][j]+1,dp[i][j-1]+1,dp[i-1][j-1]+(a[i-1]===b[j-1]?0:1));return dp[m][n]}
+function scoreText(input,target,required=[]){
+  const inNorm=normalizeText(input), tarNorm=normalizeText(target); const iw=wordTokens(input), tw=wordTokens(target);
+  const charScore = tarNorm ? Math.max(0,1-levenshtein(inNorm,tarNorm)/Math.max(tarNorm.length,1)) : 0;
+  const hit = tw.filter(w=>iw.includes(w)).length; const coverage = tw.length?hit/tw.length:0;
+  const req = required||[]; const reqHit=req.filter(w=>iw.includes(normalizeText(w))).length; const reqScore=req.length?reqHit/req.length:1;
+  const lenPenalty=Math.min(1, Math.max(0.45, iw.length/Math.max(tw.length,1), tw.length/Math.max(iw.length,1)));
+  const score=Math.round((charScore*.48 + coverage*.34 + reqScore*.18)*100*lenPenalty);
+  const missing=tw.filter((w,i)=>!iw.includes(w)&&tw.indexOf(w)===i); const extra=iw.filter((w,i)=>!tw.includes(w)&&iw.indexOf(w)===i);
+  return {score:Math.max(0,Math.min(100,score)),missing,extra,coverage:reqScore,normalizedInput:inNorm,normalizedTarget:tarNorm};
+}
+function checkAnswer(){
+  const s=currentSentence(); const t=$('answerInput'); if(!t)return; const r=scoreText(t.value,s.en,s.scoring?.requiredWords||[]);
+  const passed=r.score>=(s.scoring?.passScore||80); markAttempt(s,{typeScore:r.score,done:passed}); showResult(r,passed,'type');
+}
+function scoreManualSpeech(){const s=currentSentence(); const t=$('speechTranscript'); const r=scoreText(t.value,s.en,s.scoring?.requiredWords||[]); const passed=r.score>=(s.scoring?.passScore||80); markAttempt(s,{speakScore:r.score,done:passed}); showResult(r,passed,'speak')}
+function showResult(r,passed,kind){
+  const cls=r.score>=85?'good':r.score>=65?'warn':'bad'; const el=$('result');
+  const type=kind==='speak'?'口语':'输入';
+  el.className='result show'; el.innerHTML=`<div><span class="score ${cls}">${r.score}</span><b>${type}评分 · ${passed?'已通过':'继续练习'}</b></div>
+    <div class="feedback-line">${passed?'很好，可以进入下一句。':'先听慢速音频，再按语块重新说/打一次。'}</div>
+    <div class="diff">缺少或顺序不稳：${r.missing.length?r.missing.map(w=>`<span class="missing">${esc(w)}</span>`).join(' · '):'<span class="okword">无明显缺词</span>'}</div>
+    <div class="diff">多余词：${r.extra.length?r.extra.map(w=>`<span class="extra">${esc(w)}</span>`).join(' · '):'<span class="okword">无明显多余词</span>'}</div>`;
+}
+async function playCurrent(rate){const s=currentSentence(); await speakText(s.en,rate||state.rate)}
+async function testVoice(){await speakText('This is Basic English eight fifty. Listen, type, and speak.',state.rate)}
+function azureRate(rate){const pct=Math.round((rate-1)*100); return pct>0?`+${pct}%`:`${pct}%`}
+async function speakText(text,rate=1){
+  if(state.engine==='azure' && state.azureKey){try{return await speakAzure(text,rate)}catch(e){console.warn(e); return speakBrowser(text,rate)}}
+  return speakBrowser(text,rate);
+}
+async function speakAzure(text,rate=1){
+  const ssml=`<speak version="1.0" xml:lang="en-US"><voice name="${state.azureVoice}"><prosody rate="${azureRate(rate)}">${esc(text)}</prosody></voice></speak>`;
+  const res=await fetch(`https://${state.azureRegion}.tts.speech.microsoft.com/cognitiveservices/v1`,{method:'POST',headers:{'Ocp-Apim-Subscription-Key':state.azureKey,'Content-Type':'application/ssml+xml','X-Microsoft-OutputFormat':'audio-24khz-48kbitrate-mono-mp3'},body:ssml});
+  if(!res.ok) throw new Error('Azure TTS failed'); const blob=await res.blob(); const url=URL.createObjectURL(blob); const audio=new Audio(url); await audio.play(); audio.onended=()=>URL.revokeObjectURL(url);
+}
+function speakBrowser(text,rate=1){return new Promise(resolve=>{speechSynthesis.cancel(); const u=new SpeechSynthesisUtterance(text); u.lang='en-US'; u.rate=rate; u.pitch=1; const voices=speechSynthesis.getVoices(); let v=null; if(state.browserVoiceName)v=voices.find(x=>x.name===state.browserVoiceName); if(!v)v=voices.find(x=>/^en[-_]US/i.test(x.lang))||voices.find(x=>/^en/i.test(x.lang)); if(v)u.voice=v; u.onend=resolve; u.onerror=resolve; speechSynthesis.speak(u)})}
+async function playChunks(){const s=currentSentence(); for(const c of (s.speech?.chunks||[s.en])){await speakText(c,0.78); await sleep(280)}}
+async function loopCurrent(n=3){for(let i=0;i<n;i++){await playCurrent(i===0?0.82:state.rate); await sleep(450)}}
+function sleep(ms){return new Promise(r=>setTimeout(r,ms))}
+function startTimer(){stopTimer(); state.startedAt=Date.now(); state.timerHandle=setInterval(()=>{const sec=Math.floor((Date.now()-state.startedAt)/1000);$('timer').textContent=`${String(Math.floor(sec/60)).padStart(2,'0')}:${String(sec%60).padStart(2,'0')}`},500)}
+function stopTimer(){if(state.timerHandle)clearInterval(state.timerHandle)}
+function nextSentence(){ if(state.index<state.queue.length-1){state.index++;state.revealed=false;renderSentence();startTimer()} else {finishQuiz()} }
+function prevSentence(){ if(state.index>0){state.index--;state.revealed=false;renderSentence();startTimer()} }
+function finishQuiz(){
+  const p=progress(); const done=state.queue.filter(s=>p.sentences[s.uid]?.done).length; const pct=Math.round(done*100/state.queue.length);
+  $('sentenceArea').innerHTML=`<div class="prompt-zone"><div class="sentence-en">本轮完成 🎉</div><div class="sentence-zh">${state.lesson.id} · ${TRAINING_MODES[state.mode].label} · 通过 ${done}/${state.queue.length} 句</div></div>
+    <div class="coach-grid"><div class="coach full"><b>建议</b><br>${pct>=80?'可以切换到更高难度或口语跟读。':'把未通过句子再做一次：先慢速听，再看语块，最后整句输出。'}</div></div>
+    <div class="voicebar"><button class="btn btn-primary" onclick="state.index=0;renderSentence();startTimer()">再练一轮</button><button class="btn btn-soft" onclick="setMode('speak')">去口语跟读</button><button class="btn btn-light" onclick="showList()">返回课程</button></div>`;
+}
+async function toggleSpeechRecord(){ if(state.speaking){stopSpeechRecord();return} await startSpeechRecord() }
+async function startSpeechRecord(){
+  const SpeechRecognition=window.SpeechRecognition||window.webkitSpeechRecognition; if(!SpeechRecognition){alert('当前浏览器不支持语音识别。建议使用 Chrome/Edge，并在 HTTPS 网站上打开。');return}
+  state.transcript=''; state.speaking=true; const btn=$('recordBtn'); if(btn){btn.textContent='⏹ 停止录音';btn.classList.add('recording')}
+  try{const stream=await navigator.mediaDevices.getUserMedia({audio:true}); state.mediaRecorder=new MediaRecorder(stream); state.audioChunks=[]; state.mediaRecorder.ondataavailable=e=>{if(e.data.size)state.audioChunks.push(e.data)}; state.mediaRecorder.onstop=()=>{const blob=new Blob(state.audioChunks,{type:'audio/webm'}); state.lastAudioUrl=URL.createObjectURL(blob); stream.getTracks().forEach(t=>t.stop())}; state.mediaRecorder.start()}catch(e){console.warn(e)}
+  const rec=new SpeechRecognition(); state.recognition=rec; rec.lang='en-US'; rec.interimResults=true; rec.continuous=true;
+  rec.onresult=e=>{let final=''; for(let i=0;i<e.results.length;i++){final+=e.results[i][0].transcript+' '} state.transcript=final.trim(); const box=$('speechTranscript'); if(box)box.value=state.transcript};
+  rec.onerror=e=>console.warn(e); rec.onend=()=>{if(state.speaking)stopSpeechRecord(true); else finalizeSpeechScore()}; rec.start();
+}
+function stopSpeechRecord(fromEnd=false){state.speaking=false; const btn=$('recordBtn'); if(btn){btn.textContent='🎤 开始跟读评分';btn.classList.remove('recording')} try{if(state.recognition&&!fromEnd)state.recognition.stop()}catch(e){} try{if(state.mediaRecorder&&state.mediaRecorder.state!=='inactive')state.mediaRecorder.stop()}catch(e){} finalizeSpeechScore()}
+function finalizeSpeechScore(){const box=$('speechTranscript'); if(box&&box.value.trim())scoreManualSpeech()}
+function playMyRecording(){if(!state.lastAudioUrl){alert('还没有录音。请先点击“开始跟读评分”。');return} new Audio(state.lastAudioUrl).play()}
+function startAzureAssessment(){
+  if(!state.azureKey){alert('请先在语音设置里保存 Azure Key。没有 Key 时可使用浏览器跟读评分。');return}
+  if(!window.SpeechSDK){alert('Azure Speech SDK 未加载完成或网络不可用。可先用浏览器跟读评分。');return}
+  const s=currentSentence(); const speechConfig=SpeechSDK.SpeechConfig.fromSubscription(state.azureKey,state.azureRegion); speechConfig.speechRecognitionLanguage='en-US';
+  const audioConfig=SpeechSDK.AudioConfig.fromDefaultMicrophoneInput();
+  const pronConfig=new SpeechSDK.PronunciationAssessmentConfig(s.en, SpeechSDK.PronunciationAssessmentGradingSystem.HundredMark, SpeechSDK.PronunciationAssessmentGranularity.Phoneme, true);
+  const recognizer=new SpeechSDK.SpeechRecognizer(speechConfig,audioConfig); pronConfig.applyTo(recognizer);
+  const btn=$('recordBtn'); if(btn){btn.textContent='Azure 评估中...';btn.classList.add('recording')}
+  recognizer.recognizeOnceAsync(result=>{
+    try{const pa=SpeechSDK.PronunciationAssessmentResult.fromResult(result); const score=Math.round(pa.pronunciationScore||pa.accuracyScore||0); const box=$('speechTranscript'); if(box)box.value=result.text||''; markAttempt(s,{speakScore:score,done:score>=(s.scoring?.passScore||80)}); showResult({score,missing:[],extra:[]},score>=(s.scoring?.passScore||80),'speak')}catch(e){alert('Azure 评估返回异常，已改用文本相似度评分。');scoreManualSpeech()} finally{recognizer.close(); if(btn){btn.textContent='🎤 开始跟读评分';btn.classList.remove('recording')}}
+  }, err=>{console.warn(err); alert('Azure 评估失败，可使用浏览器评分。'); recognizer.close(); if(btn){btn.textContent='🎤 开始跟读评分';btn.classList.remove('recording')}});
+}
+function exportProgress(){const blob=new Blob([localStorage.getItem('eng850_premium_progress')||'{}'],{type:'application/json'}); const url=URL.createObjectURL(blob); const a=document.createElement('a'); a.href=url; a.download='eng850-progress.json'; a.click(); URL.revokeObjectURL(url)}
+function resetProgressConfirm(){if(confirm('确认清空本机学习记录？')){localStorage.removeItem('eng850_premium_progress');updateStats();renderLessonGrid()}}
+document.addEventListener('keydown',e=>{if(!$('viewPractice').classList.contains('active'))return; const tag=document.activeElement?.tagName; if(e.code==='Space'&&tag!=='TEXTAREA'&&tag!=='INPUT'){e.preventDefault();playCurrent()} if(e.key==='Enter'&&(e.metaKey||e.ctrlKey)){nextSentence()} if(e.key==='Enter'&&tag==='TEXTAREA'&&!e.shiftKey){e.preventDefault();checkAnswer()} if(e.key.toLowerCase()==='r'&&tag!=='TEXTAREA'&&tag!=='INPUT')toggleSpeechRecord(); if(e.key.toLowerCase()==='h'&&tag!=='TEXTAREA'&&tag!=='INPUT')revealAnswer()});
+window.speechSynthesis&&speechSynthesis.addEventListener('voiceschanged',populateVoices);
+function init(){ $('courseSubtitle').textContent=COURSE_META.subtitle + ' ' + COURSE_META.promise; populateAzureVoiceSelect(); populateVoices(); updateStats(); renderLessonGrid(); const pending=localStorage.getItem('eng850_pending_lesson'); if(pending!==null && isUnlocked()){localStorage.removeItem('eng850_pending_lesson'); setTimeout(()=>openLesson(Number(pending)),80)} }
+init();
+</script>
+</body>
+</html>
